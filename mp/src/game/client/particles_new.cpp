@@ -201,27 +201,33 @@ void CNewParticleEffect::SetDormant( bool bDormant )
 
 void CNewParticleEffect::SetControlPointEntity( int nWhichPoint, CBaseEntity *pEntity )
 {
-	if ( m_nToolParticleEffectId != TOOLPARTICLESYSTEMID_INVALID && clienttools->IsInRecordingMode() )
-	{
-		static ParticleSystemSetControlPointObjectState_t state;
-		state.m_nParticleSystemId = GetToolParticleEffectId();
-		state.m_flTime = gpGlobals->curtime;
-		state.m_nControlPoint = nWhichPoint;
-		state.m_nObject = pEntity ? pEntity->entindex() : -1;
+	try {
+		if (m_nToolParticleEffectId != TOOLPARTICLESYSTEMID_INVALID && clienttools->IsInRecordingMode())
+		{
+			static ParticleSystemSetControlPointObjectState_t state;
+			state.m_nParticleSystemId = GetToolParticleEffectId();
+			state.m_flTime = gpGlobals->curtime;
+			state.m_nControlPoint = nWhichPoint;
+			state.m_nObject = pEntity ? pEntity->entindex() : -1;
 
-		KeyValues *msg = new KeyValues( "ParticleSystem_SetControlPointObject" );
-		msg->SetPtr( "state", &state );
-		ToolFramework_PostToolMessage( HTOOLHANDLE_INVALID, msg );
-	}
+			KeyValues *msg = new KeyValues("ParticleSystem_SetControlPointObject");
+			msg->SetPtr("state", &state);
+			ToolFramework_PostToolMessage(HTOOLHANDLE_INVALID, msg);
+		}
 
-	if ( pEntity )
-	{
-		CParticleCollection::SetControlPointObject( nWhichPoint, &m_hControlPointOwners[ nWhichPoint ] );
-		m_hControlPointOwners[ nWhichPoint ] = pEntity;
+		if (pEntity)
+		{
+			CParticleCollection::SetControlPointObject(nWhichPoint, &m_hControlPointOwners[nWhichPoint]);
+			m_hControlPointOwners[nWhichPoint] = pEntity;
+		}
+		else
+			CParticleCollection::SetControlPointObject(nWhichPoint, NULL);
 	}
-	else
-		CParticleCollection::SetControlPointObject( nWhichPoint, NULL );
+	catch (...) {
+		return;
+	}
 }
+		
 
 
 void CNewParticleEffect::SetControlPoint( int nWhichPoint, const Vector &v )

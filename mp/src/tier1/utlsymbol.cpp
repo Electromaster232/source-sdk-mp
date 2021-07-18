@@ -288,7 +288,7 @@ void CUtlSymbolTable::RemoveAll()
 }
 
 
-
+/*
 class CUtlFilenameSymbolTable::HashTable : public CUtlStableHashtable<CUtlConstString>
 {
 };
@@ -434,3 +434,5 @@ void CUtlFilenameSymbolTable::RemoveAll()
 {
 	m_Strings->Purge();
 }
+
+*/

@@ -27,6 +27,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+
 REGISTER_GAMERULES_CLASS( CHalfLife2 );
 
 BEGIN_NETWORK_TABLE_NOBASE( CHalfLife2, DT_HL2GameRules )
@@ -203,7 +204,9 @@ int CHalfLife2::Damage_GetTimeBased( void )
 bool CHalfLife2::Damage_IsTimeBased( int iDmgType )
 {
 	// Damage types that are time-based.
-#ifdef HL2_EPISODIC
+#ifdef SDK2013CE
+	return ( ( iDmgType & ( DMG_PARALYZE | DMG_NERVEGAS | DMG_POISON | DMG_RADIATION | DMG_DROWNRECOVER | DMG_ACID | DMG_SLOWBURN ) ) != 0 );
+#elif HL2_EPISODIC
 	// This makes me think EP2 should have its own rules, but they are #ifdef all over in here.
 	return ( ( iDmgType & ( DMG_PARALYZE | DMG_NERVEGAS | DMG_POISON | DMG_RADIATION | DMG_DROWNRECOVER | DMG_SLOWBURN ) ) != 0 );
 #else
@@ -1775,7 +1778,7 @@ bool CHalfLife2::ShouldBurningPropsEmitLight()
 // ------------------------------------------------------------------------------------ //
 
 #ifndef HL2MP
-#ifndef PORTAL
+//#ifndef PORTAL
 
 // shared ammo definition
 // JAY: Trying to make a more physical bullet response
@@ -1876,4 +1879,4 @@ CAmmoDef *GetAmmoDef()
 }
 
 #endif
-#endif
+//#endif

@@ -79,7 +79,7 @@ int	CAmmoDef::NPCDamage(int nAmmoIndex)
 {
 	if ( nAmmoIndex < 1 || nAmmoIndex >= m_nAmmoIndex )
 		return 0;
-
+	//return 50;
 	if ( m_AmmoType[nAmmoIndex].pNPCDmg == USE_CVAR )
 	{
 		if ( m_AmmoType[nAmmoIndex].pNPCDmgCVar )

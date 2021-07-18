@@ -2464,7 +2464,7 @@ void CSceneEntity::StartPlayback( void )
 		m_pScene = LoadScene( STRING( m_iszSceneFile ), this );
 		if ( !m_pScene )
 		{
-			DevMsg( "%s missing from scenes.image\n", STRING( m_iszSceneFile ) );
+			//DevMsg( "%s missing from scenes.image\n", STRING( m_iszSceneFile ) );
 			m_bSceneMissing = true;
 			return;
 		}
@@ -3277,7 +3277,7 @@ void MissingSceneWarning( char const *scenename )
 	{
 		missing.AddString( scenename );
 
-		Warning( "Scene '%s' missing!\n", scenename );
+		//Warning( "Scene '%s' missing!\n", scenename );
 	}
 }
 

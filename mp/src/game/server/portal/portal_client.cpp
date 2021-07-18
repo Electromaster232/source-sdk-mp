@@ -34,6 +34,8 @@ void Host_Say( edict_t *pEdict, bool teamonly );
 extern CBaseEntity*	FindPickerEntityClass( CBasePlayer *pPlayer, char *classname );
 extern bool			g_fGameOver;
 
+ConVar sv_use_portal_gamerules("sv_use_portal_gamerules", "0", FCVAR_REPLICATED | FCVAR_ARCHIVE | FCVAR_NOT_CONNECTED);
+
 /*
 ===========
 ClientPutInServer
@@ -154,23 +156,13 @@ void GameStartFrame( void )
 //=========================================================
 void InstallGameRules()
 {
-	if ( !gpGlobals->deathmatch )
-	{
-		CreateGameRulesObject( "CPortalGameRules" );
-		return;
-	}
-	else
-	{
-		if ( teamplay.GetInt() > 0 )
-		{
-			// teamplay
-			CreateGameRulesObject( "CTeamplayRules" );
-		}
-		else
-		{
-			// vanilla deathmatch
-			CreateGameRulesObject( "CMultiplayRules" );
-		}
-	}
+	//if (sv_use_portal_gamerules.GetBool())
+	//{
+	//	CreateGameRulesObject("CPortalGameRules");
+	//}
+	//else
+	//{
+		CreateGameRulesObject("CHalfLife2");
+	//}
 }
 

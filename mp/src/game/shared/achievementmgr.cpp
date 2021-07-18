@@ -305,8 +305,8 @@ bool CAchievementMgr::Init()
 
 #ifdef _DEBUG
 	// There can be only one achievement manager instance; no one else should be registered
-	IAchievementMgr *pAchievementMgr = engine->GetAchievementMgr();
-	Assert( NULL == pAchievementMgr );
+	//IAchievementMgr *pAchievementMgr = engine->GetAchievementMgr();
+	//Assert( NULL == pAchievementMgr );
 #endif // _DEBUG
 
 	// register ourselves

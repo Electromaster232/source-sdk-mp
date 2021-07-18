@@ -2711,7 +2711,11 @@ void CViewRender::ViewDrawScene_PortalStencil( const CViewSetup &viewIn, ViewCus
 
 	//get references to refraction textures
 	CTextureReference pPrimaryWaterRefractionTexture;
-	pPrimaryWaterRefractionTexture.Init( GetWaterRefractionTexture() );
+	ITexture* waterTexture = GetWaterRefractionTexture();
+	if (waterTexture == NULL) {
+		return;
+	}
+	pPrimaryWaterRefractionTexture.Init( waterTexture );
 	CTextureReference pReplacementWaterRefractionTexture;
 	pReplacementWaterRefractionTexture.Init( portalrendertargets->GetWaterRefractionTextureForStencilDepth( iRecursionLevel ) );
 

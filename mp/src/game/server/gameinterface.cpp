@@ -1933,7 +1933,7 @@ void CServerGameDLL::Status( void (*print) (const char *fmt, ...) )
 {
 	if ( g_pGameRules )
 	{
-		g_pGameRules->Status( print );
+		//g_pGameRules->Status( print );
 	}
 }
 
@@ -1977,7 +1977,7 @@ bool CServerGameDLL::IsManualMapChangeOkay( const char **pszReason )
 {
 	if ( GameRules() )
 	{
-		return GameRules()->IsManualMapChangeOkay( pszReason );
+		//return GameRules()->IsManualMapChangeOkay( pszReason );
 	}
 
 	return true;
