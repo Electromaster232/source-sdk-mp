@@ -30,6 +30,7 @@ class CHudAmmo : public CHudNumericDisplay, public CHudElement
 
 public:
 	CHudAmmo( const char *pElementName );
+	~CHudAmmo(){}
 	void Init( void );
 	void VidInit( void );
 	void Reset();
@@ -359,6 +360,7 @@ class CHudSecondaryAmmo : public CHudNumericDisplay, public CHudElement
 	DECLARE_CLASS_SIMPLE( CHudSecondaryAmmo, CHudNumericDisplay );
 
 public:
+	~CHudSecondaryAmmo() {};
 	CHudSecondaryAmmo( const char *pElementName ) : BaseClass( NULL, "HudAmmoSecondary" ), CHudElement( pElementName )
 	{
 		m_iAmmo = -1;

@@ -36,6 +36,7 @@ class CHudPosture : public CHudElement, public vgui::Panel
 
 public:
 	CHudPosture( const char *pElementName );
+	~CHudPosture() {}
 	bool			ShouldDraw( void );
 
 #ifdef _X360 	// if not xbox 360, don't waste code space on this

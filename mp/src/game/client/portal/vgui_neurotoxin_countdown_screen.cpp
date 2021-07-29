@@ -27,6 +27,7 @@ class CNeurotoxinCountdownScreen : public CVGuiScreenPanel
 
 public:
 	CNeurotoxinCountdownScreen( vgui::Panel *parent, const char *panelName );
+	~CNeurotoxinCountdownScreen(){}
 
 	virtual void ApplySchemeSettings( IScheme *pScheme );
 

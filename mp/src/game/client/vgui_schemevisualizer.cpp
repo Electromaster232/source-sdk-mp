@@ -22,6 +22,7 @@ class CBorderVisualizerPanel : public Panel
 {
 	DECLARE_CLASS_SIMPLE( CBorderVisualizerPanel, Panel );
 public:
+	~CBorderVisualizerPanel() {}
 	CBorderVisualizerPanel( Panel *pParent, const char *pName, IBorder *pBorder );
 
 private:
@@ -54,6 +55,7 @@ class CColorVisualizerPanel : public Panel
 {
 	DECLARE_CLASS_SIMPLE( CColorVisualizerPanel, Panel );
 public:
+	~CColorVisualizerPanel() {}
 	CColorVisualizerPanel( Panel *pParent, const char *pName, const Color &color );
 
 private:

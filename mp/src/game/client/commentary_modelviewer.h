@@ -22,6 +22,7 @@ class CCommentaryModelPanel : public CModelPanel
 {
 public:
 	DECLARE_CLASS_SIMPLE( CCommentaryModelPanel, CModelPanel );
+	~CCommentaryModelPanel(){}
 
 	CCommentaryModelPanel( vgui::Panel *parent, const char *name );
 };

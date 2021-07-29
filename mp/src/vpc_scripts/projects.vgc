@@ -148,3 +148,13 @@ $Project "togl"
 {
 	"togl\togl.vpc" [$POSIX]
 }
+
+$Project "stdshaders_dx9"
+{
+	"stdshaders\stdshader_dx9.vpc" [$WIN32]
+}
+
+$Project "particles"
+{
+	"particles\particles.vpc" [$WIN32]
+}

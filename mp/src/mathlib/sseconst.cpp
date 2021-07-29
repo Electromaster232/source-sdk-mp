@@ -6,7 +6,7 @@
 
 #include "mathlib/ssemath.h"
 #include "mathlib/ssequaternion.h"
-
+__pragma(warning(disable:4838))
 const fltx4 Four_PointFives={0.5,0.5,0.5,0.5};
 #ifndef _X360
 const fltx4 Four_Zeros={0.0,0.0,0.0,0.0};
@@ -1162,3 +1162,4 @@ void TransformManyPointsBy(VectorAligned * RESTRICT pVectors, unsigned int numVe
 
 }
 #endif
+__pragma(warning(default:4838))

@@ -51,7 +51,7 @@ static const uint32 _sincos_inv_masks[] = { (uint32)~0x0, (uint32)0x0 };
 	#define _PS_CONST(Name, Val) \
 		static const float _ps_##Name[4]  __attribute__((aligned(16))) = { Val, Val, Val, Val }
 #endif
-
+__pragma(warning(disable:4838));
 _PS_EXTERN_CONST(am_0, 0.0f);
 _PS_EXTERN_CONST(am_1, 1.0f);
 _PS_EXTERN_CONST(am_m1, -1.0f);
@@ -67,7 +67,7 @@ _PS_EXTERN_CONST_TYPE(am_inv_sign_mask, int32, ~0x80000000);
 _PS_EXTERN_CONST_TYPE(am_min_norm_pos,int32, 0x00800000);
 _PS_EXTERN_CONST_TYPE(am_mant_mask, int32, 0x7f800000);
 _PS_EXTERN_CONST_TYPE(am_inv_mant_mask, int32, ~0x7f800000);
-
+__pragma(warning(default:4838));
 _EPI32_CONST(1, 1);
 _EPI32_CONST(2, 2);
 

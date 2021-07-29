@@ -34,6 +34,7 @@ class CHudPoisonDamageIndicator : public CHudElement, public vgui::Panel
 	DECLARE_CLASS_SIMPLE( CHudPoisonDamageIndicator, vgui::Panel );
 
 public:
+	~CHudPoisonDamageIndicator(){}
 	CHudPoisonDamageIndicator( const char *pElementName );
 	void Reset( void );
 	virtual bool ShouldDraw( void );

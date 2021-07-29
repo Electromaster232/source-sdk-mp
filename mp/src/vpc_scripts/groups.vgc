@@ -59,6 +59,8 @@ $Group "everything"
         "hammer_dll"
         "hammer_launcher"
         "gameui"
+	"stdshaders_dx9"
+	"particles"
 }
 
 $Group "dedicated"

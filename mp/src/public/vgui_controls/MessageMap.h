@@ -133,7 +133,6 @@ struct MessageMapItem_t
 #endif
 
 #if defined( VGUI_USEKEYBINDINGMAPS )
-
 #define DECLARE_CLASS_SIMPLE( className, baseClassName ) \
 	typedef baseClassName BaseClass; \
 	typedef className ThisClass;	\
@@ -143,7 +142,6 @@ public:								\
 	DECLARE_KEYBINDINGMAP( className ); \
 	static char const *GetPanelClassName() { return #className; } \
 	static char const *GetPanelBaseClassName() { return #baseClassName; }
-
 #define DECLARE_CLASS_SIMPLE_NOBASE( className ) \
 	typedef className ThisClass;	\
 public:							\

@@ -1435,8 +1435,19 @@ static void GetFogColorTransition( fogparams_t *pFogParams, float *pColorPrimary
 	{
 		float flPercent = 1.0f - (( pFogParams->lerptime - gpGlobals->curtime ) / pFogParams->duration );
 
-		float flPrimaryColorLerp[3] = { (float)pFogParams->colorPrimaryLerpTo.GetR(), (float)pFogParams->colorPrimaryLerpTo.GetG(), (float)pFogParams->colorPrimaryLerpTo.GetB() };
-		float flSecondaryColorLerp[3] = { (float)pFogParams->colorSecondaryLerpTo.GetR(), (float)pFogParams->colorSecondaryLerpTo.GetG(), (float)pFogParams->colorSecondaryLerpTo.GetB() };
+		float flPrimaryColorLerp[3] =
+		{
+			float(pFogParams->colorPrimaryLerpTo.GetR()),
+			float(pFogParams->colorPrimaryLerpTo.GetG()),
+			float(pFogParams->colorPrimaryLerpTo.GetB())
+		};
+
+		float flSecondaryColorLerp[3] =
+		{
+			float(pFogParams->colorSecondaryLerpTo.GetR()),
+			float(pFogParams->colorSecondaryLerpTo.GetG()),
+			float(pFogParams->colorSecondaryLerpTo.GetB())
+		};
 
 		CheckAndTransitionColor( flPercent, pColorPrimary, flPrimaryColorLerp );
 		CheckAndTransitionColor( flPercent, pColorSecondary, flSecondaryColorLerp );
@@ -1459,9 +1470,19 @@ static void GetFogColor( fogparams_t *pFogParams, float *pColor )
 	}
 	else
 	{
-		float flPrimaryColor[3] = { (float)pFogParams->colorPrimary.GetR(), (float)pFogParams->colorPrimary.GetG(), (float)pFogParams->colorPrimary.GetB() };
-		float flSecondaryColor[3] = { (float)pFogParams->colorSecondary.GetR(), (float)pFogParams->colorSecondary.GetG(), (float)pFogParams->colorSecondary.GetB() };
+		float flPrimaryColor[3] =
+		{
+			float(pFogParams->colorPrimary.GetR()),
+			float(pFogParams->colorPrimary.GetG()),
+			float(pFogParams->colorPrimary.GetB())
+		};
 
+		float flSecondaryColor[3] =
+		{
+			float(pFogParams->colorSecondary.GetR()),
+			float(pFogParams->colorSecondary.GetG()),
+			float(pFogParams->colorSecondary.GetB())
+		};
 		GetFogColorTransition( pFogParams, flPrimaryColor, flSecondaryColor );
 
 		if( pFogParams->blend )

@@ -27,6 +27,7 @@ class CHudPortalCrosshair : public CHudElement, public vgui::Panel
 	DECLARE_CLASS_SIMPLE( CHudPortalCrosshair, vgui::Panel );
 public:
 	CHudPortalCrosshair( const char *pElementName );
+	~CHudPortalCrosshair(){}
 
 	void			SetCrosshairAngle( const QAngle& angle );
 	void			SetCrosshair( CHudTexture *texture, Color& clr );

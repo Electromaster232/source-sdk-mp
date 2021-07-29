@@ -49,6 +49,15 @@ const float ATTACHED_DAMPING_SCALE = 50.0f;
 #define	SF_RAGDOLLPROP_ALLOW_STRETCH		0x8000
 #define	SF_RAGDOLLPROP_STARTASLEEP			0x10000
 
+
+#ifdef PLATFORM_POSIX
+#define PRAGMA_DISABLE_NARROWING_WARNING 
+#define PRAGMA_ENABLE_NARROWING_WARNING 
+#else
+#define PRAGMA_DISABLE_NARROWING_WARNING __pragma(warning(disable:4838))
+#define PRAGMA_ENABLE_NARROWING_WARNING __pragma(warning(default:4838))
+#endif
+
 //-----------------------------------------------------------------------------
 // Networking
 //-----------------------------------------------------------------------------
@@ -69,7 +78,7 @@ END_SEND_TABLE()
 	DEFINE_PHYSPTR( m_ragdoll.list[i].pObject ), \
 	DEFINE_PHYSPTR( m_ragdoll.list[i].pConstraint ), \
 	DEFINE_FIELD( m_ragdoll.list[i].parentIndex, FIELD_INTEGER )
-
+PRAGMA_DISABLE_NARROWING_WARNING;
 BEGIN_DATADESC(CRagdollProp)
 //					m_ragdoll (custom handling)
 	DEFINE_AUTO_ARRAY	( m_ragdoll.boneIndex,	FIELD_INTEGER	),
@@ -142,7 +151,7 @@ BEGIN_DATADESC(CRagdollProp)
 	DEFINE_RAGDOLL_ELEMENT( 23 ),
 
 END_DATADESC()
-
+PRAGMA_ENABLE_NARROWING_WARNING;
 //-----------------------------------------------------------------------------
 // Disable auto fading under dx7 or when level fades are specified
 //-----------------------------------------------------------------------------

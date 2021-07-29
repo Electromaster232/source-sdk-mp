@@ -31,7 +31,7 @@ class CHudAnimationInfo : public CHudElement, public vgui::Panel
 	DECLARE_CLASS_SIMPLE( CHudAnimationInfo, vgui::Panel );
 
 public:
-
+	~CHudAnimationInfo(){}
 	CHudAnimationInfo( const char *pElementName );
 
 	virtual bool ShouldDraw();

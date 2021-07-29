@@ -45,6 +45,7 @@ class CVGuiScreenPanel : public vgui::EditablePanel
 
 public:
 	CVGuiScreenPanel( vgui::Panel *parent, const char *panelName );
+	~CVGuiScreenPanel() {};
 	CVGuiScreenPanel( vgui::Panel *parent, const char *panelName, vgui::HScheme hScheme );
 	virtual bool Init( KeyValues* pKeyValues, VGuiScreenInitData_t* pInitData );
 	vgui::Panel *CreateControlByName(const char *controlName);

@@ -132,7 +132,7 @@ CPortalSimulator::CPortalSimulator( void )
 	s_PortalSimulators.AddToTail( this );
 
 #ifdef CLIENT_DLL
-	m_bGenerateCollision = (GameRules() && GameRules()->IsMultiplayer());
+	m_bGenerateCollision =  (GameRules() && GameRules()->IsMultiplayer());
 #endif
 
 	m_CreationChecklist.bPolyhedronsGenerated = false;

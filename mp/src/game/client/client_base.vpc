@@ -22,6 +22,7 @@ $Configuration	"Debug"
 {
 	$General
 	{
+                $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
 		$OutputDirectory			".\Debug_$GAMENAME"			[$WIN32]
 		$IntermediateDirectory		".\Debug_$GAMENAME"			[$WIN32]
 
@@ -34,6 +35,7 @@ $Configuration	"Release"
 {
 	$General
 	{
+                $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
 		$OutputDirectory			".\Release_$GAMENAME"		[$WIN32]
 		$IntermediateDirectory		".\Release_$GAMENAME"		[$WIN32]
 

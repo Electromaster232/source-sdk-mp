@@ -37,6 +37,8 @@ class CHudDamageIndicator : public CHudElement, public vgui::Panel
 
 public:
 	CHudDamageIndicator( const char *pElementName );
+	~CHudDamageIndicator(){}
+
 	void Init( void );
 	void Reset( void );
 	virtual bool ShouldDraw( void );
@@ -179,7 +181,7 @@ void CHudDamageIndicator::DrawDamageIndicator(int side)
 	int x1 = m_flDmgX;
 	int x2 = m_flDmgX + m_flDmgWide;
 	int y[4] = { (int)m_flDmgY, (int)(m_flDmgY + insetY), (int)(m_flDmgY + m_flDmgTall1 - insetY), (int)(m_flDmgY + m_flDmgTall1) };
-	int alpha[4] = { 0.0f, 1.0f, 1.0f, 0.0f };
+	float alpha[4] = { 0.0f, 1.0f, 1.0f, 0.0f };
 
 	// see if we're high damage
 	bool bHighDamage = false;

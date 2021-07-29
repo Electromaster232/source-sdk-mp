@@ -19,6 +19,7 @@ class CHudChat : public CBaseHudChat
 
 public:
 	CHudChat( const char *pElementName );
+	~CHudChat(){}
 
 	virtual void	Init( void );
 

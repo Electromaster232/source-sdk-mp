@@ -1504,6 +1504,7 @@ void CProp_Portal::StartTouch( CBaseEntity *pOther )
 				CPortalSimulator *pOwningSimulator = CPortalSimulator::GetSimulatorThatOwnsEntity( pOther );
 				if( pOwningSimulator && (pOwningSimulator != &m_PortalSimulator) )
 					pOwningSimulator->ReleaseOwnershipOfEntity( pOther );
+				
 				if (FClassnameIs(pOther, "npc_metropolice")) {
 					//trace_t result;
 					//UTIL_TraceModel(pOther->GetAbsOrigin(), pOther->GetAbsOrigin(), vWorldMins, vWorldMaxs, m_hLinkedPortal, COLLISION_GROUP_NONE, &result);
@@ -1516,7 +1517,7 @@ void CProp_Portal::StartTouch( CBaseEntity *pOther )
 						//pOther->SetMoveType(MOVETYPE_NONE);
 					}
 					pOther->owningPortal = this;
-				}
+				} 
 
 				m_PortalSimulator.TakeOwnershipOfEntity( pOther );
 			}

@@ -46,6 +46,7 @@ $Configuration
 {
 	$General
 	{
+                $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
 		$OutputDirectory		".\$GAMENAME"		[$OSXALL]
 	}
 	

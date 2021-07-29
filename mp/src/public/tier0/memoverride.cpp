@@ -109,6 +109,9 @@ inline void *ReallocUnattributed( void *pMem, size_t nSize )
 // under linux this malloc() overrides the libc malloc() and so we
 // end up in a recursion (as g_pMemAlloc->Alloc() calls malloc)
 #if _MSC_VER >= 1400
+#if _MSC_VER >= 1900
+#define _CRTNOALIAS
+#endif
 #define ALLOC_CALL _CRTNOALIAS _CRTRESTRICT 
 #define FREE_CALL _CRTNOALIAS 
 #else
@@ -156,28 +159,28 @@ void* __cdecl _malloc_base( size_t nSize )
 	return AllocUnattributed( nSize );
 }
 #else
-void *_malloc_base( size_t nSize )
+ALLOC_CALL void *_malloc_base( size_t nSize )
 {
 	return AllocUnattributed( nSize );
 }
 #endif
 
-void *_calloc_base( size_t nSize )
+ALLOC_CALL void *_calloc_base(size_t nCount, size_t nSize )
 {
-	void *pMem = AllocUnattributed( nSize );
-	memset(pMem, 0, nSize);
+	void *pMem = AllocUnattributed(nCount * nSize);
+	memset(pMem, 0, nCount * nSize);
 	return pMem;
 }
 
-void *_realloc_base( void *pMem, size_t nSize )
+ALLOC_CALL void *_realloc_base( void *pMem, size_t nSize )
 {
 	return ReallocUnattributed( pMem, nSize );
 }
 
-void *_recalloc_base( void *pMem, size_t nSize )
+ALLOC_CALL void *_recalloc_base(void *pMem, size_t nCount, size_t nSize)
 {
-	void *pMemOut = ReallocUnattributed( pMem, nSize );
-	memset(pMemOut, 0, nSize);
+	void *pMemOut = ReallocUnattributed(pMem, nCount * nSize);
+	memset(pMemOut, 0, nCount * nSize);
 	return pMemOut;
 }
 
@@ -200,7 +203,7 @@ void * __cdecl _malloc_crt(size_t size)
 
 void * __cdecl _calloc_crt(size_t count, size_t size)
 {
-	return _calloc_base( count * size );
+	return _calloc_base( count, size );
 }
 
 void * __cdecl _realloc_crt(void *ptr, size_t size)
@@ -210,7 +213,7 @@ void * __cdecl _realloc_crt(void *ptr, size_t size)
 
 void * __cdecl _recalloc_crt(void *ptr, size_t count, size_t size)
 {
-	return _recalloc_base( ptr, size * count );
+	return _recalloc_base( ptr, size, count );
 }
 
 ALLOC_CALL void * __cdecl _recalloc ( void * memblock, size_t count, size_t size )
@@ -633,16 +636,16 @@ int _CrtSetDbgFlag( int nNewFlag )
 #define AFNAME(var) __p_ ## var
 #define AFRET(var)  &var
 
-int _crtDbgFlag = _CRTDBG_ALLOC_MEM_DF;
-int* AFNAME(_crtDbgFlag)(void)
+int __crtDbgFlag = _CRTDBG_ALLOC_MEM_DF;
+int* AFNAME(__crtDbgFlag)(void)
 {
-	return AFRET(_crtDbgFlag);
+	return AFRET(__crtDbgFlag);
 }
 
-long _crtBreakAlloc;      /* Break on this allocation */
-long* AFNAME(_crtBreakAlloc) (void)
+long __crtBreakAlloc;      /* Break on this allocation */
+long* AFNAME(__crtBreakAlloc) (void)
 {
-	return AFRET(_crtBreakAlloc);
+	return AFRET(__crtBreakAlloc);
 }
 
 void __cdecl _CrtSetDbgBlockType( void *pMem, int nBlockUse )
@@ -865,6 +868,7 @@ ErrorHandlerRegistrar::ErrorHandlerRegistrar()
 
 #if defined( _DEBUG )
  
+#define SUPPRESS_INVALID_PARAMETER_NO_INFO
 // wrapper which passes no debug info; not available in debug
 #ifndef	SUPPRESS_INVALID_PARAMETER_NO_INFO
 void __cdecl _invalid_parameter_noinfo(void)
@@ -898,8 +902,8 @@ int __cdecl _CrtDbgReportW( int nRptType, const wchar_t *szFile, int nLine,
 	return 0;
 }
 
-int __cdecl _VCrtDbgReportA( int nRptType, const wchar_t * szFile, int nLine, 
-							 const wchar_t * szModule, const wchar_t * szFormat, va_list arglist )
+int __cdecl _VCrtDbgReportA(int nRptType, void* pReturnAddress, const char * szFile, int nLine,
+	const char * szModule, const char * szFormat, va_list arglist)
 {
 	Assert(0);
 	return 0;
@@ -1074,7 +1078,7 @@ void __cdecl _aligned_free_dbg( void * memblock)
     _aligned_free(memblock);
 }
 
-size_t __cdecl _CrtSetDebugFillThreshold( size_t _NewDebugFillThreshold)
+size_t __cdecl __CrtSetDebugFillThreshold( size_t _NewDebugFillThreshold)
 {
 	assert(0);
     return 0;
@@ -1158,7 +1162,7 @@ wchar_t * __cdecl _wcsdup ( const wchar_t * string )
 #endif
 } // end extern "C"
 
-#if _MSC_VER >= 1400
+#if _MSC_VER >= 1400 && _MSC_VER < 1900
 
 //-----------------------------------------------------------------------------
 // 	XBox Memory Allocator Override

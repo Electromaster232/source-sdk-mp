@@ -84,6 +84,7 @@ protected:
 	private:
 		typedef vgui::Frame BaseClass;
 	public:
+		~CBackGroundPanel(){}
 		CBackGroundPanel( vgui::Panel *parent) : Frame( parent, "ViewPortBackGround" ) 
 		{
 			SetScheme("ClientScheme");
