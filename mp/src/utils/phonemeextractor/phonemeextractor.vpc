@@ -23,6 +23,7 @@ $Configuration
 	$Linker
 	{
 		$AdditionalDependencies				"$BASE odbc32.lib odbccp32.lib"
+		$AdditionalDependencies				"$BASE legacy_stdio_definitions.lib"
 	}
 }
 

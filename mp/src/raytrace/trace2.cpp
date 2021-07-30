@@ -42,10 +42,12 @@ void MapLinearIntensities(FourVectors const &intens,uint32 *p1, uint32 *p2, uint
 	*(p4)=(SubInt(r, 3))|(SubInt(g, 3)<<8)|(SubInt(b, 3)<<16);
 }
 
+__pragma(warning(disable:4838))
 static ALIGN16 int32 signmask[4]={0x80000000,0x80000000,0x80000000,0x80000000};
 static ALIGN16 int32 all_ones[4]={-1,-1,-1,-1};
 static fltx4 all_zeros={0,0,0,0};
 static fltx4 TraceLimit={1.0e20,1.0e20,1.0e20,1.0e20};
+__pragma(warning(default:4838))
 
 void RayTracingEnvironment::RenderScene(
 	int width, int height,								   // width and height of desired rendering

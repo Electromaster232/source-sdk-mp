@@ -11,15 +11,22 @@ $Include "$SRCDIR\vpc_scripts\source_dll_base.vpc"
 
 $Configuration
 {
+
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
 		$AdditionalIncludeDirectories		"$BASE,..\common,..\vmpi,..\vmpi\mysql\include"
 		$PreprocessorDefinitions			"$BASE;MPI;PROTECTED_THINGS_DISABLE"
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
 	}
 
 	$Linker
 	{
 		$AdditionalDependencies				"$BASE odbc32.lib odbccp32.lib ws2_32.lib"
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib" [$VS2019]	
 	}
 }
 

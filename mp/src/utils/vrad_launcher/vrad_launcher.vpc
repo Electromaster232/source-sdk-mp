@@ -12,8 +12,13 @@ $Include "$SRCDIR\vpc_scripts\source_exe_con_base.vpc"
 
 $Configuration
 {
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
 		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
 		$PrecompiledHeaderFile				"$(IntDir)/vrad_launcher.pch"
 	}
@@ -21,6 +26,7 @@ $Configuration
 	$Linker [$WIN32]
 	{
 		$EnableLargeAddresses				"Support Addresses Larger Than 2 Gigabytes (/LARGEADDRESSAWARE)"
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib"
 	}
 }
 

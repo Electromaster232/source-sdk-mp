@@ -63,6 +63,24 @@ $Group "everything"
 	"particles"
 }
 
+$Group "common"
+{
+	"stdshaders_dx9"
+	"particles"
+	"client"
+	"server"
+	"vrad_dll"
+	"raytrace"
+	"vvis_dll"
+	"vice"
+	"vbsp"
+	"mathlib"
+	"tier1"
+	"vvis_launcher"
+	"vrad_launcher"
+	"vgui_controls"
+}
+
 $Group "dedicated"
 {
 	"mathlib"

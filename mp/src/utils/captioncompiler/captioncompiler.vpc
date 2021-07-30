@@ -11,6 +11,10 @@ $Include "$SRCDIR\vpc_scripts\source_exe_con_base.vpc"
 
 $Configuration
 {
+	$General
+	{
+		$PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
 		$AdditionalIncludeDirectories		"$BASE,..\common,$SRCDIR\game\shared,.\"
@@ -40,6 +44,7 @@ $Project "Captioncompiler"
 		$File	"$SRCDIR\public\filesystem_helpers.cpp"
 		$File	"$SRCDIR\public\filesystem_helpers.h"
 		$File	"$SRCDIR\public\filesystem_init.cpp"
+		-$File	"$SRCDIR\public\tier0\memoverride.cpp"
 		$File	"$SRCDIR\public\filesystem_init.h"
 		$File	"$SRCDIR\public\mathlib\mathlib.h"
 		$File	"..\common\pacifier.cpp"

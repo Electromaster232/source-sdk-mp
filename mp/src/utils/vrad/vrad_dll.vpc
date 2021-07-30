@@ -11,8 +11,13 @@ $Include "$SRCDIR\vpc_scripts\source_dll_base.vpc"
 
 $Configuration
 {
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
 		$AdditionalIncludeDirectories		"$BASE,..\common,..\vmpi,..\vmpi\mysql\mysqlpp\include,..\vmpi\mysql\include"
 		$PreprocessorDefinitions			"$BASE;MPI;PROTECTED_THINGS_DISABLE;VRAD"
 	}
@@ -20,6 +25,7 @@ $Configuration
 	$Linker
 	{
 		$AdditionalDependencies				"$BASE ws2_32.lib"
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib"
 	}
 }
 
@@ -40,6 +46,7 @@ $Project "Vrad_dll"
 		$File	"macro_texture.cpp"
 		$File	"..\common\mpi_stats.cpp"
 		$File	"mpivrad.cpp"
+		-$File  "$SRCDIR\public\tier0\memoverride.cpp"
 		$File	"..\common\MySqlDatabase.cpp"
 		$File	"..\common\pacifier.cpp"
 		$File	"..\common\physdll.cpp"

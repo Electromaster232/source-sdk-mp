@@ -52,6 +52,7 @@ $Configuration
 	
 	$Compiler
 	{
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838" [$VS2019]
 		$AdditionalIncludeDirectories	"$BASE;.\;$SRCDIR\game\shared;$SRCDIR\utils\common;$SRCDIR\game\shared\econ;$SRCDIR\game\server\NextBot"
 		$PreprocessorDefinitions		"$BASE;GAME_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;sprintf=use_Q_snprintf_instead_of_sprintf;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead"
 		$PreprocessorDefinitions		"$BASE;SWDS" [$POSIX]
@@ -63,6 +64,7 @@ $Configuration
 	$Linker
 	{
 		$AdditionalDependencies			"$BASE winmm.lib" [$WIN32]
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib" [$VS2019]
 		$SystemLibraries                                                        "iconv" [$OSXALL]
 	}
 }

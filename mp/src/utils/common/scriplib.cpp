@@ -11,6 +11,7 @@
 #include "tier1/strtools.h"
 #include "tier2/tier2.h"
 #include "cmdlib.h"
+
 #include "scriplib.h"
 #if defined( _X360 )
 #include "xbox\xbox_win32stubs.h"
@@ -19,6 +20,7 @@
 #include "../../filesystem/linux_support.h"
 #include <sys/stat.h>
 #endif
+
 /*
 =============================================================================
 

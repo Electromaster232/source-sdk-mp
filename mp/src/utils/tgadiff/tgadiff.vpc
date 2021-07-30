@@ -9,6 +9,24 @@ $Macro OUTBINDIR	"$SRCDIR\..\game\bin"
 
 $Include "$SRCDIR\vpc_scripts\source_exe_con_base.vpc"
 
+$Configuration
+{
+	$Linker
+	{
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib" 
+	}
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
+	$Compiler
+	{
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
+	}
+
+}
+
+
 $Project "Tgadiff"
 {
 	$Folder	"Source Files"

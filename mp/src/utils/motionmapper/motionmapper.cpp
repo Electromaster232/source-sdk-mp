@@ -610,15 +610,15 @@ void ParseFaceData( s_source_t *psource, int material, s_face_t *pFace )
 		{
 			int k;
 			int ctr = 0;
-			char *token;
+			char *token2;
 			for (k = 0; k < 18; k++)
 			{
 				while (g_szLine[ctr] == ' ')
 				{
 					ctr++;
 				}
-				token = strtok( &g_szLine[ctr], " " );
-				ctr += strlen( token ) + 1;
+				token2 = strtok( &g_szLine[ctr], " " );
+				ctr += strlen( token2 ) + 1;
 			}
 			for (k = 4; k < iCount && k < MAXSTUDIOSRCBONES; k++)
 			{
@@ -626,15 +626,15 @@ void ParseFaceData( s_source_t *psource, int material, s_face_t *pFace )
 				{
 					ctr++;
 				}
-				token = strtok( &g_szLine[ctr], " " );
-				ctr += strlen( token ) + 1;
+				token2 = strtok( &g_szLine[ctr], " " );
+				ctr += strlen( token2 ) + 1;
 
-				bones[k] = atoi(token);
+				bones[k] = atoi(token2);
 
-				token = strtok( &g_szLine[ctr], " " );
-				ctr += strlen( token ) + 1;
+				token2 = strtok( &g_szLine[ctr], " " );
+				ctr += strlen( token2 ) + 1;
 			
-				weights[k] = atof(token);
+				weights[k] = atof(token2);
 			}
 			// vprint( 0, "%d ", iCount );
 
@@ -1131,11 +1131,11 @@ void BuildIndividualMeshes( s_source_t *psource )
 		Vector2Copy( g_texcoord[v_listdata[j].t], psource->texcoord[i] );
 
 		psource->localBoneweight[i].numbones		= g_bone[v_listdata[j].v].numbones;
-		int k;
-		for( k = 0; k < MAXSTUDIOBONEWEIGHTS; k++ )
+		int k2;
+		for( k2 = 0; k2 < MAXSTUDIOBONEWEIGHTS; k2++ )
 		{
-			psource->localBoneweight[i].bone[k]		= g_bone[v_listdata[j].v].bone[k];
-			psource->localBoneweight[i].weight[k]	= g_bone[v_listdata[j].v].weight[k];
+			psource->localBoneweight[i].bone[k2]		= g_bone[v_listdata[j].v].bone[k2];
+			psource->localBoneweight[i].weight[k2]	= g_bone[v_listdata[j].v].weight[k2];
 		}
 
 		// store a bunch of other info

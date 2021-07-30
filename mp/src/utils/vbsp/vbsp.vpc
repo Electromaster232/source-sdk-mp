@@ -11,8 +11,13 @@ $Include "$SRCDIR\vpc_scripts\source_exe_con_base.vpc"
 
 $Configuration
 {
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
 		$AdditionalIncludeDirectories		"$BASE,..\common,..\vmpi"
 		$PreprocessorDefinitions			"$BASE;MACRO_MATHLIB;PROTECTED_THINGS_DISABLE"
 	}
@@ -20,11 +25,13 @@ $Configuration
 	$Linker
 	{
 		$AdditionalDependencies				"$BASE ws2_32.lib odbc32.lib odbccp32.lib winmm.lib"
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib"
 	}
 }
 
 $Project "Vbsp"
 {
+
 	$Folder	"Source Files"
 	{
 		$File	"boundbox.cpp"
@@ -63,6 +70,7 @@ $Project "Vbsp"
 		$File	"..\common\utilmatlib.cpp"
 		$File	"vbsp.cpp"
 		$File	"worldvertextransitionfixup.cpp"
+		-$File "$SRCDIR\public\tier0\memoverride.cpp"
 		$File	"writebsp.cpp"
 		$File	"$SRCDIR\public\zip_utils.cpp"
 

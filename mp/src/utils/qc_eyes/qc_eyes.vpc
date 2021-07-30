@@ -11,6 +11,10 @@ $Include "$SRCDIR\vpc_scripts\source_exe_base.vpc"
 
 $Configuration
 {
+	$General 
+	{
+	        $PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
 		// Deprecated MBCS MFC libraries for VS 2013 (nafxcw.lib and nafxcwd.lib) can be downloaded from http://go.microsoft.com/?linkid=9832071
@@ -18,11 +22,13 @@ $Configuration
 		$Create/UsePrecompiledHeader		"Use Precompiled Header (/Yu)"
 		$PrecompiledHeaderFile				"Debug/QC_Eyes.pch"
 		$EnableC++Exceptions				"Yes (/EHsc)"
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;" [$VS2019]
 	}
 
 	$Linker
 	{
 		$AdditionalDependencies				"$BASE;windowscodecs.lib"
+		$AdditionalDependencies 		"$BASE legacy_stdio_definitions.lib" [$VS2019]
 	}
 }
 
