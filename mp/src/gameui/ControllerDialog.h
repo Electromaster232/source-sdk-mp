@@ -18,6 +18,7 @@ class CControllerDialog : public COptionsDialogXbox
 
 public:
 	CControllerDialog(vgui::Panel *parent);
+	~CControllerDialog(){}
 
 	virtual void		ApplySchemeSettings( vgui::IScheme *pScheme );
 

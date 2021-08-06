@@ -47,6 +47,7 @@ class CSaveGameDialogXbox : public CSaveGameBrowserDialog
 
 public:
 					CSaveGameDialogXbox( vgui::Panel *parent );
+					~CSaveGameDialogXbox(){}
 	virtual void	PerformSelectedAction( void );
 	virtual void	UpdateFooterOptions( void );
 	virtual void	OnCommand( const char *command );

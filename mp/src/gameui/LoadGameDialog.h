@@ -41,6 +41,7 @@ class CLoadGameDialogXbox : public CSaveGameBrowserDialog
 
 public:
 					CLoadGameDialogXbox( vgui::Panel *parent );
+					~CLoadGameDialogXbox(){}
 	virtual void	ApplySchemeSettings( vgui::IScheme *pScheme );
 	virtual void	OnCommand(const char *command);
 	virtual void	PerformSelectedAction( void );

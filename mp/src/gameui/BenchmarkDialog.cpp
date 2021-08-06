@@ -69,6 +69,7 @@ public:
 		m_pUploadCheck->SetSelected( true );
 		MoveToCenterOfScreen();
 	}
+	~CBenchmarkResultsDialog(){}
 
 	virtual void Activate()
 	{

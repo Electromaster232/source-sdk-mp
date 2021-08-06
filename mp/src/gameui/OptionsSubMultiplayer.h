@@ -31,6 +31,7 @@ class CrosshairImagePanelBase : public vgui::ImagePanel
 	DECLARE_CLASS_SIMPLE( CrosshairImagePanelBase, vgui::ImagePanel );
 public:
 	CrosshairImagePanelBase( Panel *parent, const char *name ) : BaseClass(parent, name) {}
+	~CrosshairImagePanelBase(){}
 	virtual void ResetData() {}
 	virtual void ApplyChanges() {}
 	virtual void UpdateVisibility() {}

@@ -83,6 +83,7 @@ public:
 		SetPaintEnabled(false);
 		SetPaintBackgroundEnabled(false);
 	}
+	~CSelectionOverlayPanel() {}
 
 	virtual void OnMousePressed( vgui::MouseCode code )
 	{
@@ -193,6 +194,8 @@ public:
 		m_bTeaserChapter = !wcscmp(w_szStrTemp, L"Coming Soon");
 		m_bHasBonus = false;
 	}
+
+	~CGameChapterPanel(){}
 
 	virtual void ApplySchemeSettings( IScheme *pScheme )
 	{

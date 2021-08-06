@@ -126,6 +126,7 @@ class CMainMenuGameLogo : public vgui::EditablePanel
 	DECLARE_CLASS_SIMPLE( CMainMenuGameLogo, vgui::EditablePanel );
 public:
 	CMainMenuGameLogo( vgui::Panel *parent, const char *name );
+	~CMainMenuGameLogo(){}
 
 	virtual void ApplySettings( KeyValues *inResourceData );
 	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
@@ -146,6 +147,7 @@ class CGameMenuItem : public vgui::MenuItem
 	DECLARE_CLASS_SIMPLE( CGameMenuItem, vgui::MenuItem );
 public:
 	CGameMenuItem(vgui::Menu *parent, const char *name);
+	~CGameMenuItem(){}
 
 	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
 	virtual void PaintBackground( void );

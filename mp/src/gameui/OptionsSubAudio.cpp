@@ -396,6 +396,7 @@ public:
       SetSizeable( false );
       SetDeleteSelfOnClose( true );
    }
+   ~COptionsSubAudioThirdPartyCreditsDlg(){}
 
    virtual void Activate()
    {

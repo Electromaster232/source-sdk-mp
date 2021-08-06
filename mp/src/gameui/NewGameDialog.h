@@ -39,9 +39,11 @@ public:
 	{
 	}
 
+	~CNewGamePlayButton(){}
+
 	void OnKeyCodePressed( vgui::KeyCode code )
 	{
-		if ( code == KEY_XBUTTON_A || code == KEY_XBUTTON_A )
+		if ( code == KEY_XBUTTON_A )
 		{
 			ConVarRef var( "joystick" );
 			if ( var.IsValid() && !var.GetBool() )

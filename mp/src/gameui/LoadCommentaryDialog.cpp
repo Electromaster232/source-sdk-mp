@@ -90,6 +90,8 @@ public:
 		m_FillColor = m_pCommentaryScreenshotBackground->GetFillColor();
 	}
 
+	~CCommentaryItemPanel(){}
+
 	void SetCommentaryInfo( CommentaryItem_t &item )
 	{
 		// set the bitmap to display

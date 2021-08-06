@@ -35,6 +35,8 @@ public:
 	{
 	}
 
+	~CInlineEditPanel(){}
+
 	virtual void Paint()
 	{
 		int x = 0, y = 0, wide, tall;

@@ -58,6 +58,7 @@ public:
 
 		m_FillColor = m_pSaveGameScreenshotBackground->GetFillColor();
 	}
+	~CSaveGamePanel() {}
 
 	void SetSaveGameInfo( SaveGameDescription_t &save )
 	{

@@ -47,6 +47,8 @@ public:
 	}
 
 	char m_szPropertyString[ MAX_PATH ];
+
+	~CPropertyLabel(){}
 };
 
 //--------------------------------

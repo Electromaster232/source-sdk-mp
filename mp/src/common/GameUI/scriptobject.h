@@ -139,12 +139,14 @@ public:
 	CScriptObject	*pScrObj;
 
 	mpcontrol_t		*next;
+	~mpcontrol_t(){}
 };
 
 class CInfoDescription : public CDescription
 {
 public:
 	CInfoDescription( void );
+	~CInfoDescription(){}
 
 	virtual void WriteScriptHeader( FileHandle_t fp ) OVERRIDE;
 	virtual void WriteFileHeader( FileHandle_t fp ) OVERRIDE; 

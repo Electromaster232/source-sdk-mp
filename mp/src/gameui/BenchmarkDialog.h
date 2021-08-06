@@ -20,6 +20,7 @@ class CBenchmarkDialog : public vgui::Frame
 	DECLARE_CLASS_SIMPLE( CBenchmarkDialog, vgui::Frame );
 public:
 	CBenchmarkDialog(vgui::Panel *parent, const char *name);
+	~CBenchmarkDialog(){}
 
 	void OnKeyCodePressed( vgui::KeyCode code )
 	{

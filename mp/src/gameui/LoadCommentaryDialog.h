@@ -39,6 +39,7 @@ class CLoadCommentaryDialog : public vgui::Frame
 
 public:
 	CLoadCommentaryDialog( vgui::Panel *parent );
+	~CLoadCommentaryDialog(){}
 
 protected:
 	CUtlVector<CommentaryItem_t> m_CommentaryItems;

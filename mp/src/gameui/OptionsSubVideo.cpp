@@ -153,6 +153,7 @@ public:
 
 		m_pGammaSlider->SetTickCaptions( "#GameUI_Light", "#GameUI_Dark" );
 	}
+	~CGammaDialog() {}
 
 	MESSAGE_FUNC_PTR( OnGammaChanged, "SliderMoved", panel )
 	{
@@ -245,17 +246,17 @@ private:
 //-----------------------------------------------------------------------------
 class COptionsSubVideoAdvancedDlg : public vgui::Frame
 {
-	DECLARE_CLASS_SIMPLE( COptionsSubVideoAdvancedDlg, vgui::Frame );
+	DECLARE_CLASS_SIMPLE(COptionsSubVideoAdvancedDlg, vgui::Frame);
 public:
-	COptionsSubVideoAdvancedDlg( vgui::Panel *parent ) : BaseClass( parent , "OptionsSubVideoAdvancedDlg" )
+	COptionsSubVideoAdvancedDlg(vgui::Panel* parent) : BaseClass(parent, "OptionsSubVideoAdvancedDlg")
 	{
 		SetTitle("#GameUI_VideoAdvanced_Title", true);
-		SetSize( 260, 400 );
+		SetSize(260, 400);
 
-		m_pDXLevel = new ComboBox(this, "dxlabel", 6, false );
-		const MaterialSystem_Config_t &config = materials->GetCurrentConfigForVideoCard();
-		KeyValues *pKeyValues = new KeyValues( "config" );
-		materials->GetRecommendedConfigurationInfo( 0, pKeyValues );
+		m_pDXLevel = new ComboBox(this, "dxlabel", 6, false);
+		const MaterialSystem_Config_t& config = materials->GetCurrentConfigForVideoCard();
+		KeyValues* pKeyValues = new KeyValues("config");
+		materials->GetRecommendedConfigurationInfo(0, pKeyValues);
 		m_pDXLevel->DeleteAllItems();
 		for (int i = 0; i < ARRAYSIZE(g_DirectXLevels); i++)
 		{
@@ -266,26 +267,26 @@ public:
 				g_DirectXLevels[i] < pKeyValues->GetInt("ConVar.mat_dxlevel"))
 				continue;
 
-			KeyValues *pTempKV = new KeyValues("config");
+			KeyValues* pTempKV = new KeyValues("config");
 			if (g_DirectXLevels[i] == pKeyValues->GetInt("ConVar.mat_dxlevel")
-				|| materials->GetRecommendedConfigurationInfo( g_DirectXLevels[i], pTempKV ))
+				|| materials->GetRecommendedConfigurationInfo(g_DirectXLevels[i], pTempKV))
 			{
 				// add the configuration in the combo
 				char szDXLevelName[64];
-				GetNameForDXLevel( g_DirectXLevels[i], szDXLevelName, sizeof(szDXLevelName) );
-				m_pDXLevel->AddItem( szDXLevelName, new KeyValues("dxlevel", "dxlevel", g_DirectXLevels[i]) );
+				GetNameForDXLevel(g_DirectXLevels[i], szDXLevelName, sizeof(szDXLevelName));
+				m_pDXLevel->AddItem(szDXLevelName, new KeyValues("dxlevel", "dxlevel", g_DirectXLevels[i]));
 			}
 
 			pTempKV->deleteThis();
 		}
 		pKeyValues->deleteThis();
 
-		m_pModelDetail = new ComboBox( this, "ModelDetail", 6, false );
+		m_pModelDetail = new ComboBox(this, "ModelDetail", 6, false);
 		m_pModelDetail->AddItem("#gameui_low", NULL);
 		m_pModelDetail->AddItem("#gameui_medium", NULL);
 		m_pModelDetail->AddItem("#gameui_high", NULL);
 
-		m_pTextureDetail = new ComboBox( this, "TextureDetail", 6, false );
+		m_pTextureDetail = new ComboBox(this, "TextureDetail", 6, false);
 		m_pTextureDetail->AddItem("#gameui_low", NULL);
 		m_pTextureDetail->AddItem("#gameui_medium", NULL);
 		m_pTextureDetail->AddItem("#gameui_high", NULL);
@@ -304,13 +305,13 @@ public:
 		//	The CSAA modes are nVidia only (added in the G80 generation of GPUs)
 		//
 		m_nNumAAModes = 0;
-		m_pAntialiasingMode = new ComboBox( this, "AntialiasingMode", 10, false );
+		m_pAntialiasingMode = new ComboBox(this, "AntialiasingMode", 10, false);
 		m_pAntialiasingMode->AddItem("#GameUI_None", NULL);
 		m_nAAModes[m_nNumAAModes].m_nNumSamples = 1;
 		m_nAAModes[m_nNumAAModes].m_nQualityLevel = 0;
 		m_nNumAAModes++;
 
-		if ( materials->SupportsMSAAMode(2) )
+		if (materials->SupportsMSAAMode(2))
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_2X", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 2;
@@ -318,7 +319,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsMSAAMode(4) )
+		if (materials->SupportsMSAAMode(4))
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_4X", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 4;
@@ -326,7 +327,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsMSAAMode(6) )
+		if (materials->SupportsMSAAMode(6))
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_6X", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 6;
@@ -334,7 +335,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsCSAAMode(4, 2) )							// nVidia CSAA			"8x"
+		if (materials->SupportsCSAAMode(4, 2))							// nVidia CSAA			"8x"
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_8X_CSAA", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 4;
@@ -342,7 +343,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsCSAAMode(4, 4) )							// nVidia CSAA			"16x"
+		if (materials->SupportsCSAAMode(4, 4))							// nVidia CSAA			"16x"
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_16X_CSAA", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 4;
@@ -350,7 +351,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsMSAAMode(8) )
+		if (materials->SupportsMSAAMode(8))
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_8X", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 8;
@@ -358,7 +359,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		if ( materials->SupportsCSAAMode(8, 2) )							// nVidia CSAA			"16xQ"
+		if (materials->SupportsCSAAMode(8, 2))							// nVidia CSAA			"16xQ"
 		{
 			m_pAntialiasingMode->AddItem("#GameUI_16XQ_CSAA", NULL);
 			m_nAAModes[m_nNumAAModes].m_nNumSamples = 8;
@@ -366,7 +367,7 @@ public:
 			m_nNumAAModes++;
 		}
 
-		m_pFilteringMode = new ComboBox( this, "FilteringMode", 6, false );
+		m_pFilteringMode = new ComboBox(this, "FilteringMode", 6, false);
 		m_pFilteringMode->AddItem("#GameUI_Bilinear", NULL);
 		m_pFilteringMode->AddItem("#GameUI_Trilinear", NULL);
 		m_pFilteringMode->AddItem("#GameUI_Anisotropic2X", NULL);
@@ -374,86 +375,87 @@ public:
 		m_pFilteringMode->AddItem("#GameUI_Anisotropic8X", NULL);
 		m_pFilteringMode->AddItem("#GameUI_Anisotropic16X", NULL);
 
-		m_pShadowDetail = new ComboBox( this, "ShadowDetail", 6, false );
+		m_pShadowDetail = new ComboBox(this, "ShadowDetail", 6, false);
 		m_pShadowDetail->AddItem("#gameui_low", NULL);
 		m_pShadowDetail->AddItem("#gameui_medium", NULL);
-		if ( materials->SupportsShadowDepthTextures() )
+		if (materials->SupportsShadowDepthTextures())
 		{
 			m_pShadowDetail->AddItem("#gameui_high", NULL);
 		}
 
-		ConVarRef mat_dxlevel( "mat_dxlevel" );
+		ConVarRef mat_dxlevel("mat_dxlevel");
 
-		m_pHDR = new ComboBox( this, "HDR", 6, false );
+		m_pHDR = new ComboBox(this, "HDR", 6, false);
 		m_pHDR->AddItem("#GameUI_hdr_level0", NULL);
 		m_pHDR->AddItem("#GameUI_hdr_level1", NULL);
 
-		if ( materials->SupportsHDRMode( HDR_TYPE_INTEGER ) )
+		if (materials->SupportsHDRMode(HDR_TYPE_INTEGER))
 		{
 			m_pHDR->AddItem("#GameUI_hdr_level2", NULL);
 		}
 #if 0
-		if ( materials->SupportsHDRMode( HDR_TYPE_FLOAT ) )
+		if (materials->SupportsHDRMode(HDR_TYPE_FLOAT))
 		{
 			m_pHDR->AddItem("#GameUI_hdr_level3", NULL);
 		}
 #endif
 
-		m_pHDR->SetEnabled( mat_dxlevel.GetInt() >= 80 );
+		m_pHDR->SetEnabled(mat_dxlevel.GetInt() >= 80);
 
-		m_pWaterDetail = new ComboBox( this, "WaterDetail", 6, false );
+		m_pWaterDetail = new ComboBox(this, "WaterDetail", 6, false);
 		m_pWaterDetail->AddItem("#gameui_noreflections", NULL);
 		m_pWaterDetail->AddItem("#gameui_reflectonlyworld", NULL);
 		m_pWaterDetail->AddItem("#gameui_reflectall", NULL);
 
-		m_pVSync = new ComboBox( this, "VSync", 2, false );
+		m_pVSync = new ComboBox(this, "VSync", 2, false);
 		m_pVSync->AddItem("#gameui_disabled", NULL);
 		m_pVSync->AddItem("#gameui_enabled", NULL);
 
-		m_pMulticore = new ComboBox( this, "Multicore", 2, false );
+		m_pMulticore = new ComboBox(this, "Multicore", 2, false);
 		m_pMulticore->AddItem("#gameui_disabled", NULL);
 		m_pMulticore->AddItem("#gameui_enabled", NULL);
 
-		m_pShaderDetail = new ComboBox( this, "ShaderDetail", 6, false );
+		m_pShaderDetail = new ComboBox(this, "ShaderDetail", 6, false);
 		m_pShaderDetail->AddItem("#gameui_low", NULL);
 		m_pShaderDetail->AddItem("#gameui_high", NULL);
 
-		m_pColorCorrection = new ComboBox( this, "ColorCorrection", 2, false );
+		m_pColorCorrection = new ComboBox(this, "ColorCorrection", 2, false);
 		m_pColorCorrection->AddItem("#gameui_disabled", NULL);
 		m_pColorCorrection->AddItem("#gameui_enabled", NULL);
 
-		m_pMotionBlur = new ComboBox( this, "MotionBlur", 2, false );
+		m_pMotionBlur = new ComboBox(this, "MotionBlur", 2, false);
 		m_pMotionBlur->AddItem("#gameui_disabled", NULL);
 		m_pMotionBlur->AddItem("#gameui_enabled", NULL);
 
-		LoadControlSettings( "resource/OptionsSubVideoAdvancedDlg.res" );
+		LoadControlSettings("resource/OptionsSubVideoAdvancedDlg.res");
 		MoveToCenterOfScreen();
-		SetSizeable( false );
+		SetSizeable(false);
 
 		m_pDXLevel->SetEnabled(false);
-		
-		m_pColorCorrection->SetEnabled( mat_dxlevel.GetInt() >= 90 );
-		m_pMotionBlur->SetEnabled( mat_dxlevel.GetInt() >= 90 );
-		
-		if ( g_pCVar->FindVar( "fov_desired" ) == NULL )
+
+		m_pColorCorrection->SetEnabled(mat_dxlevel.GetInt() >= 90);
+		m_pMotionBlur->SetEnabled(mat_dxlevel.GetInt() >= 90);
+
+		if (g_pCVar->FindVar("fov_desired") == NULL)
 		{
-			Panel *pFOV = FindChildByName( "FovSlider" );
-			if ( pFOV )
+			Panel* pFOV = FindChildByName("FovSlider");
+			if (pFOV)
 			{
-				pFOV->SetVisible( false );
+				pFOV->SetVisible(false);
 			}
 
-			pFOV = FindChildByName( "FovLabel" );
-			if ( pFOV )
+			pFOV = FindChildByName("FovLabel");
+			if (pFOV)
 			{
-				pFOV->SetVisible( false );
+				pFOV->SetVisible(false);
 			}
 		}
-		
+
 		MarkDefaultSettingsAsRecommended();
 
 		m_bUseChanges = false;
 	}
+	~COptionsSubVideoAdvancedDlg() {}
 
 	virtual void Activate()
 	{
@@ -1727,6 +1729,7 @@ public:
       SetSizeable( false );
       SetDeleteSelfOnClose( true );
    }
+   ~COptionsSubVideoThirdPartyCreditsDlg(){}
 
    virtual void Activate()
    {

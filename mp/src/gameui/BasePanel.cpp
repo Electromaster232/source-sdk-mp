@@ -237,6 +237,7 @@ public:
 
 		m_hMainMenuOverridePanel = NULL;
 	}
+	~CGameMenu(){}
 
 	virtual void ApplySchemeSettings(IScheme *pScheme)
 	{
@@ -2770,6 +2771,7 @@ public:
 		SetDeleteSelfOnClose(true);
 		SetSizeable(false);
 	}
+	~CSaveBeforeQuitQueryDialog() {}
 
 	void DoModal()
 	{
@@ -2865,6 +2867,7 @@ public:
 	CQuitQueryBox(const char *title, const char *info, Panel *parent) : BaseClass( title, info, parent )
 	{
 	}
+	~CQuitQueryBox() {}
 
 	void DoModal( Frame* pFrameOver )
 	{

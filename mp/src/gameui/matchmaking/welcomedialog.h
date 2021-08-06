@@ -21,6 +21,7 @@ class CWelcomeDialog : public CBaseDialog
 
 public:
 	CWelcomeDialog(vgui::Panel *parent);
+	~CWelcomeDialog(){}
 
 	virtual void	PerformLayout( void );
 	virtual void	OnCommand( const char *pCommand );

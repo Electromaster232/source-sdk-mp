@@ -21,6 +21,7 @@ class CPauseDialog : public CBaseDialog
 
 public:
 	CPauseDialog( vgui::Panel *parent );
+	~CPauseDialog(){}
 
 	virtual void Activate( void );
 	virtual void OnKeyCodePressed( vgui::KeyCode code );

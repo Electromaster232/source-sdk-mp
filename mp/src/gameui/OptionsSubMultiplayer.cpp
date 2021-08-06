@@ -112,6 +112,7 @@ class CrosshairImagePanelSimple : public CrosshairImagePanelBase
 	DECLARE_CLASS_SIMPLE( CrosshairImagePanelSimple, CrosshairImagePanelBase );
 public:
 	CrosshairImagePanelSimple( Panel *parent, const char *name, COptionsSubMultiplayer* pOptionsPanel );
+	~CrosshairImagePanelSimple() {}
 	virtual void Paint();
 	virtual void ResetData();
 	virtual void ApplyChanges();
@@ -408,6 +409,7 @@ class CrosshairImagePanelCS : public CrosshairImagePanelBase
 
 public:
 	CrosshairImagePanelCS( Panel *parent, const char *name, COptionsSubMultiplayer* pOptionsPanel );
+	~CrosshairImagePanelCS() {}
 	virtual void ResetData();
 	virtual void ApplyChanges();
 

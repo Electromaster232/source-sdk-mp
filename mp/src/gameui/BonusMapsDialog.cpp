@@ -87,6 +87,7 @@ public:
 
 		m_FillColor = m_pBonusMapScreenshotBackground->GetFillColor();
 	}
+	~CBonusMapPanel(){}
 
 	void SetBonusMapInfo( const char *pCurrentPath, BonusMapDescription_t &map )
 	{
