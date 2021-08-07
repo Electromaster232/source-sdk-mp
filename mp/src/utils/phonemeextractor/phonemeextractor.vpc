@@ -11,13 +11,17 @@ $Include "$SRCDIR\vpc_scripts\source_dll_base.vpc"
 
 $Configuration
 {
+	$General 
+	{
+		$PlatformToolset "v142" [$VS2019 && !$ANALYZE] // VS 2019
+	}
 	$Compiler
 	{
 		$AdditionalIncludeDirectories		"$BASE;../common,../hlfaceposer,../sapi51/include"
 		$PreprocessorDefinitions			"$BASE;PHONEMEEXTRACTOR_EXPORTS"
 
 		// The project has some trouble with the deprecated string function warnings, so turn those off.
-		$AdditionalOptions	"$BASE /wd4995"
+		$AdditionalOptions	"$BASE /wd4995 /wd4456 /wd4996 /wd4840"
 	}
 	
 	$Linker
@@ -31,6 +35,7 @@ $Project "Phonemeextractor"
 {
 	$Folder	"Source Files"
 	{
+		-$File  "$SRCDIR\public\tier0\memoverride.cpp"
 		$File	"extractor_utils.cpp"
 		$File	"$SRCDIR\public\phonemeconverter.cpp"
 		$File	"$SRCDIR\public\sentence.cpp"

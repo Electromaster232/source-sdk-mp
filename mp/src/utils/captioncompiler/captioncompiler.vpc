@@ -29,6 +29,7 @@ $Project "Captioncompiler"
 		$File	"captioncompiler.cpp"
 		$File	"$SRCDIR\common\compiledcaptionswap.cpp"
 		$File	"..\common\filesystem_tools.cpp"
+		-$File	"$SRCDIR\public\tier0\memoverride.cpp"
 	}
 
 	$Folder	"Header Files"

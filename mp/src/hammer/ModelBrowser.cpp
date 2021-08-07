@@ -26,6 +26,7 @@ public:
 	{
 		m_pBrowser = pBrowser;
 	}
+	~CModelBrowserPanel(){}
 
 	virtual	void OnSizeChanged(int newWide, int newTall)
 	{

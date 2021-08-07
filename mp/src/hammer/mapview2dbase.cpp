@@ -55,6 +55,7 @@ public:
 	{
 		m_pMapView = pMapView;
 	}
+	~CMapView2DBasePanel(){}
 
 	virtual void OnSizeChanged(int newWide, int newTall)
 	{

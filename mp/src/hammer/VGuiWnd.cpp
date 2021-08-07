@@ -28,6 +28,7 @@ class CBaseMainPanel : public vgui::EditablePanel
 public:
 
 	CBaseMainPanel(Panel *parent, const char *panelName) : vgui::EditablePanel( parent, panelName ) {};
+	~CBaseMainPanel(){}
 
 	virtual	void OnSizeChanged(int newWide, int newTall)
 	{

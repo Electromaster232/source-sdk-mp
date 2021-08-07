@@ -1086,7 +1086,7 @@ size_t __cdecl __CrtSetDebugFillThreshold( size_t _NewDebugFillThreshold)
 
 //===========================================
 // NEW!!! 64-bit
-
+/*
 char * __cdecl _strdup ( const char * string )
 {
 	int nSize = (int)strlen(string) + 1;
@@ -1098,6 +1098,7 @@ char * __cdecl _strdup ( const char * string )
 		memcpy( pCopy, string, nSize );
 	return pCopy;
 }
+*/
 
 #if 0
 _TSCHAR * __cdecl _tfullpath_dbg ( _TSCHAR *UserBuf, const _TSCHAR *path, size_t maxlen, int nBlockUse, const char * szFileName, int nLine )

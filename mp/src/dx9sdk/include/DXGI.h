@@ -103,7 +103,7 @@ typedef interface IDXGIDevice IDXGIDevice;
 
 
 /* header files for imported files */
-#include "dxgitype.h"
+//#include "dxgitype.h"
 
 #ifdef __cplusplus
 extern "C"{
