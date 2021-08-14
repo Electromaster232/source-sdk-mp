@@ -245,7 +245,14 @@ protected:
 public:
 	DECLARE_DATADESC();
 	DECLARE_SERVERCLASS();
-	
+// =======================================
+// PySource Additions
+// =======================================
+	DECLARE_PYSERVERCLASS( CBasePlayer );
+// =======================================
+// END PySource Additions
+// =======================================
+
 	CBasePlayer();
 	~CBasePlayer();
 
@@ -370,6 +377,15 @@ public:
 	// returns the player name
 	const char *			GetPlayerName() { return m_szNetname; }
 	void					SetPlayerName( const char *name );
+// =======================================
+// PySource Additions
+// =======================================
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
+	boost::python::object	PyGetPlayerName();
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
+// =======================================
+// END PySource Additions
+// =======================================
 
 	int						GetUserID() { return engine->GetPlayerUserId( edict() ); }
 	const char *			GetNetworkIDString(); 

@@ -10,13 +10,15 @@ $Macro GAMENAME 	"mod_portal" [$SOURCESDK]
 
 $Include "$SRCDIR\game\server\server_base.vpc"
 $Include "$SRCDIR\game\server\nav_mesh.vpc" [$SOURCESDK]
+$Include "$SRCDIR\vpc_scripts\pysource_base.vpc"
+$Include "$SRCDIR\game\server\server_pysource_autogen.vpc"
 
 $Configuration
 {
 	$Compiler
 	{
-		$AdditionalIncludeDirectories	"$BASE;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;$SRCDIR\game\shared\sdk2013ce;.\hl2;.\episodic;.\sdk2013ce;$SRCDIR\game\shared\portal;$SRCDIR\game\shared\Multiplayer;$SRCDIR\game\shared\portal;.\portal"
-		$PreprocessorDefinitions		"$BASE;PORTAL;HL2_DLL;HL2_EPISODIC;USES_SAVERESTORE;Portal_Gamerules"
+		$AdditionalIncludeDirectories	"$BASE;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;$SRCDIR\game\shared\sdk2013ce;.\hl2;.\episodic;.\sdk2013ce;$SRCDIR\game\shared\portal;$SRCDIR\game\shared\Multiplayer;$SRCDIR\game\shared\portal;.\portal;.\python,$SRCDIR\game\shared\python"
+		$PreprocessorDefinitions		"$BASE;PORTAL;HL2_DLL;HL2_EPISODIC;USES_SAVERESTORE;Portal_Gamerules;GLOWS_ENABLE"
 	}
 }
 $Project "Server"
@@ -386,5 +388,30 @@ $Project "Server"
 				$File	"$SRCDIR\game\shared\portal\weapon_portalgun_shared.h"
 			}
 		}
+		$Folder	"Python"
+		{
+			//$Folder	"Helpers"
+			//{
+			//	$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.cpp"
+			//	$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.h"
+			//}
+		
+			$File	"$SRCDIR\game\shared\python\srcpy.cpp"
+			$File	"$SRCDIR\game\shared\python\srcpy.h"
+			$File	"$SRCDIR\game\shared\python\srcpy_class_shared.cpp"
+			$File	"$SRCDIR\game\shared\python\srcpy_class_shared.h"
+			$File	"$SRCDIR\game\shared\python\srcpy_config.cpp"
+			$File	"$SRCDIR\game\shared\python\srcpy_standalone.cpp"
+			$File	"$SRCDIR\game\shared\python\srcpy_standalone.h"
+			$File	"python\srcpy_server_class.cpp"
+			$File	"python\srcpy_server_class.h"
+		}
+	}
+	
+	$Folder	"Link Libraries"
+	{
+		$Lib	"$LIBPUBLIC\boost_python39"
+		$Lib	"$LIBPUBLIC\python39" [$WIN32]
+		$Lib	"$LIBPUBLIC\libpython3.4m" [$POSIX]
 	}
 }

@@ -15,6 +15,10 @@ $Include "$SRCDIR\vpc_scripts\pysource_base.vpc"
 
 $Configuration
 {
+	$General
+	{
+		$PlatformToolset "v142" [$VS2019]
+	}
 	$Compiler
 	{
 		// General
@@ -27,7 +31,7 @@ $Configuration
 	}
 }
 
-$Project "boost_python"
+$Project "boost_python39"
 {
 	$Folder	"Source Files"
 	{

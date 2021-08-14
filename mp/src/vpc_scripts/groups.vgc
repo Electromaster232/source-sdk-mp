@@ -61,6 +61,7 @@ $Group "everything"
         "gameui"
 	"stdshaders_dx9"
 	"particles"
+	"boost_python"
 }
 
 $Group "common"

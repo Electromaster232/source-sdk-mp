@@ -762,6 +762,16 @@ void Panel::Init( int x, int y, int wide, int tall )
 	m_LastNavDirection = ND_NONE;
 	m_bWorldPositionCurrentFrame = false;
 	m_bForceStereoRenderToFrameBuffer = false;
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	m_bPyDeleted = false;
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 }
 
 //-----------------------------------------------------------------------------
@@ -769,6 +779,17 @@ void Panel::Init( int x, int y, int wide, int tall )
 //-----------------------------------------------------------------------------
 Panel::~Panel()
 {
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( m_bPyDeleted )
+		return; // Cleanup already done in PyDestroyPanel!
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 	// @note Tom Bui: only cleanup if we've created it
 	if ( !m_bToolTipOverridden )
 	{
@@ -834,6 +855,93 @@ Panel::~Panel()
 	*panel_vtbl = NULL;
 #endif
 }
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+void Panel::PyDestroyPanel()
+{
+	if( m_bPyDeleted )
+		return;
+
+	// In case our reference count reaches zero during deletion of the panel (prevents crash)
+	// TODO: Fix this issue in other functions?
+	boost::python::object ref = boost::python::object(
+		boost::python::handle<>(
+		boost::python::borrowed(GetPySelf())
+		)
+	);
+
+	// @note Tom Bui: only cleanup if we've created it
+	if ( !m_bToolTipOverridden )
+	{
+		if ( m_pTooltips )
+		{		
+			delete m_pTooltips;
+		}
+	}
+#if defined( VGUI_USEKEYBINDINGMAPS )
+	if ( IsValidKeyBindingsContext() )
+	{
+		g_KBMgr.OnPanelDeleted( m_hKeyBindingsContext, this );
+	}
+#endif // VGUI_USEKEYBINDINGMAPS
+#if defined( VGUI_USEDRAGDROP )
+	if ( m_pDragDrop->m_bDragging )
+	{
+		OnFinishDragging( false, (MouseCode)-1 );
+	}
+#endif // VGUI_USEDRAGDROP
+
+	_flags.ClearFlag( AUTODELETE_ENABLED );
+	_flags.SetFlag( MARKED_FOR_DELETION );
+
+	// remove panel from any list
+	SetParent((VPANEL)NULL);
+
+	// Stop our children from pointing at us, and delete them if possible
+	while (ipanel()->GetChildCount(GetVPanel()))
+	{
+		VPANEL child = ipanel()->GetChild(GetVPanel(), 0);
+		if (ipanel()->IsAutoDeleteSet(child))
+		{
+			ipanel()->DeletePanel(child);
+		}
+		else
+		{
+			ipanel()->SetParent(child, NULL);
+		}
+	}
+
+	// delete VPanel
+	ivgui()->FreePanel(_vpanel);
+	// free our name
+	delete [] _panelName;
+
+	if ( _tooltipText && _tooltipText[0] )
+	{
+		delete [] _tooltipText;
+	}
+
+	delete [] _pinToSibling;
+
+	_vpanel = NULL;
+#if defined( VGUI_USEDRAGDROP )
+	delete m_pDragDrop;
+#endif // VGUI_USEDRAGDROP
+
+	// Cause an attribute error when trying to access methods of this class
+	// Calling methods after deletion might be dangerous, this prevents it for most part...
+	boost::python::object _vguicontrols = boost::python::import("_vguicontrols");
+	setattr(ref, "__class__",  _vguicontrols.attr("DeadPanel"));
+
+	m_bPyDeleted = true;
+}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 
 //-----------------------------------------------------------------------------
 // Purpose: fully construct this panel so its ready for use right now (i.e fonts loaded, colors set, default label text set, ...)
@@ -1680,6 +1788,21 @@ void Panel::DeletePanel()
 	// Avoid re-entrancy
 	_flags.SetFlag( MARKED_FOR_DELETION );
 	_flags.ClearFlag( AUTODELETE_ENABLED );
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( GetPySelf() )
+	{
+		PyDestroyPanel();
+		return;
+	}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 	delete this;
 }
 
@@ -6961,6 +7084,7 @@ void Panel::OnFinishDragging( bool mousereleased, MouseCode code, bool abort /*=
 	m_pDragDrop->m_bDragging = false;
 
 	CUtlVector< KeyValues * >& data = m_pDragDrop->m_DragData;
+	int c = data.Count();
 
 	Panel *target = NULL;
 	bool shouldDrop = false;
@@ -7008,7 +7132,7 @@ void Panel::OnFinishDragging( bool mousereleased, MouseCode code, bool abort /*=
 			m_pDragDrop->m_hDropContextMenu = NULL;
 		}
 
-		for ( int i = 0 ; i < data.Count(); ++i )
+		for ( int i = 0 ; i < c; ++i )
 		{
 			KeyValues *msg = data[ i ];
 
@@ -7025,7 +7149,7 @@ void Panel::OnFinishDragging( bool mousereleased, MouseCode code, bool abort /*=
 			// Convert screen space coordintes to coordinates relative to drop window
 			target->ScreenToLocal( localmousex, localmousey );
 
-			for ( int i = 0 ; i < data.Count(); ++i )
+			for ( int i = 0 ; i < c; ++i )
 			{
 				KeyValues *msg = data[ i ];
 
@@ -7049,16 +7173,20 @@ void Panel::OnFinishDragging( bool mousereleased, MouseCode code, bool abort /*=
 	// Copy data ptrs out of data because OnPanelDropped might cause this panel to be deleted
 	// and our this ptr will be hosed...
 	CUtlVector< KeyValues * > temp;
-	for ( int i = 0 ; i < data.Count(); ++i )
+	for ( int i = 0 ; i < c; ++i )
+	{
 		temp.AddToTail( data[ i ] );
-
+	}
 	data.RemoveAll();
 
 	if ( shouldDrop && target )
+	{
 		target->OnPanelDropped( temp );
-
-	for ( int i = 0 ; i < data.Count(); ++i )
+	}
+	for ( int i = 0 ; i < c ; ++i )
+	{
         temp[ i ]->deleteThis();
+	}
 #endif
 }
 
@@ -7404,13 +7532,17 @@ void CDragDropHelperPanel::PostChildPaint()
 			else
 			{
 				CUtlVector< Panel * > temp;
-				CUtlVector< PHandle >& dragPanels = panel->GetDragDropInfo()->m_DragPanels;
+				CUtlVector< PHandle >& data = panel->GetDragDropInfo()->m_DragPanels;
 				CUtlVector< KeyValues * >& msglist = panel->GetDragDropInfo()->m_DragData;
-				for ( int k = 0; k < dragPanels.Count(); ++k )
+				int i, c;
+				c = data.Count();
+				for ( i = 0; i < c ; ++i )
 				{
-					Panel *pPanel = dragPanels[ k ].Get();
+					Panel *pPanel = data[ i ].Get();
 					if ( pPanel )
+					{
 						temp.AddToTail( pPanel );
+					}
 				}
 
 				dropPanel->OnDroppablePanelPaint( msglist, temp );
@@ -7669,6 +7801,7 @@ void Panel::OnPanelExitedDroppablePanel ( CUtlVector< KeyValues * >& msglist )
 {
 	// Empty.  Derived classes would implement handlers here
 }
+
 
 //-----------------------------------------------------------------------------
 // Purpose: 

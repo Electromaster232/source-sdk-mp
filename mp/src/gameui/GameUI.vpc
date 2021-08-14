@@ -8,15 +8,21 @@ $macro SRCDIR		".."
 $Macro OUTBINDIR	"$SRCDIR\..\game\bin"
 
 $include "$SRCDIR\vpc_scripts\source_dll_base.vpc"
+$Include "$SRCDIR\vpc_scripts\pysource_base.vpc"
 //$Include "$SRCDIR\vpc_scripts\source_saxxyawards.vpc"
 //$include "$SRCDIR\vpc_scripts\source_cryptlib_include.vpc" 
 // No idea what cryptlib is supposed to do. I could copy it from the leak, but I have a feeling it isnt important.
 
 $Configuration
 {
+	$General 
+	{
+		$PlatformToolset "v142" [$VS2019]
+	}
 	$Compiler
 	{
 		$AdditionalIncludeDirectories	"$BASE;.\;$SRCDIR\vgui2\include;$SRCDIR\vgui2\controls;$SRCDIR\common\GameUI"
+		$DisableSpecificWarnings	"$BASE;4456;4457;4458;4459;4594;4624;5205;4838;4091;4840" [$VS2019]
 		$PreprocessorDefinitions		"$BASE;GAMEUI_EXPORTS;VERSION_SAFE_STEAM_API_INTERFACES"
 	}
 

@@ -158,3 +158,8 @@ $Project "particles"
 {
 	"particles\particles.vpc" [$WIN32]
 }
+
+$Project "boost_python"
+{
+	"thirdparty\boost\libs\python\boost_pysource.vpc" [$WIN32]
+}
